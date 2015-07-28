@@ -1,0 +1,64 @@
+services:
+    negotiatior_format:
+        class: Negotiation\FormatNegotiator
+
+    # Router
+    # -----------------------
+    router:
+        class: Symfony\Component\Routing\Router
+        factory: [Zendo\Resty\Builder\RouterBuilder, create]
+        arguments: 
+            - '@service_container'
+
+    router_file_locator:
+        class: Symfony\Component\Config\FileLocator
+        factory: [Zendo\Resty\Builder\FileLocatorBuilder, create]
+        arguments: 
+            - '@service_container'
+
+    router_yaml_file_loader:
+        class: Symfony\Component\Routing\Loader\YamlFileLoader
+        arguments: ["@router_file_locator"]
+
+    router_matcher:
+        class: Symfony\Component\Routing\Matcher\UrlMatcherInterface
+        factory: [Zendo\Resty\Builder\RouterMatcherBuilder, create]
+        arguments: 
+            - '@service_container'
+
+    # Listeners
+    # -----------------------
+    listener_router:
+        class: Symfony\Component\HttpKernel\EventListener\RouterListener
+        arguments:
+            - '@router_matcher'
+
+    listener_automatic_serialize:
+        class: Zendo\Resty\EventListener\AutomaticSerializerListener
+        calls:
+            - ['setContainer', ['@service_container']]
+
+    listener_exception:
+        class: Zendo\Resty\EventListener\ExceptionListener
+    
+    # HttpKernel
+    # -----------------------
+
+    http_kernel_event_dispatcher:
+        class: Symfony\Component\EventDispatcher\EventDispatcher
+        calls: 
+            - [addSubscriber, ["@listener_router"]]
+            - [addSubscriber, ["@listener_automatic_serialize"]]
+            - [addSubscriber, ["@listener_exception"]]
+
+    http_kernel_controller_resolver:
+        class: Zendo\Resty\Controller\ControllerResolver
+        calls:
+            - ['setContainer', ['@service_container']]
+            
+
+    http_kernel:
+        class: Symfony\Component\HttpKernel\HttpKernel
+        arguments:
+            - "@http_kernel_event_dispatcher"
+            - "@http_kernel_controller_resolver"

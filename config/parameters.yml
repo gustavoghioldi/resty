@@ -1,0 +1,22 @@
+parameters:
+    # Resty version
+    version: '0.1.0'
+    # Root path del proyecto
+    root_path: 
+    # Environment
+    env: 
+
+    # route config
+    # --------------------------------------------------------
+    # directorio donde guardar el cache
+    route.cache.path: "cache"
+    # directorio donde buscar el archivo routes.yml
+    route.routes.path: "config"
+    # Nombre del archivo donde estan definidas las rutas
+    route.routes.filename: 'routes.yml'
+
+    # Negotiatior
+    # --------------------------------------------------------
+    negotiatior.format_accept: 
+        - 'application/xml'
+        - 'application/json'
