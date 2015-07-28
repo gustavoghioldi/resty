@@ -1,5 +1,5 @@
 {
-    "name": "zendo/resty",
+    "name": "restyphp/resty",
     "description": "PHP library to create REST APIs",
     "version": "0.1.0",
     "keywords": [],
