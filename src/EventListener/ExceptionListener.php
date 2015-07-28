@@ -15,7 +15,7 @@
  * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @link      http://www.mostofreddy.com.ar
  */
-namespace Zendo\Resty\EventListener;
+namespace Resty\EventListener;
 
 //EventDispatcher
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

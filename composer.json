@@ -15,7 +15,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Zendo\\Resty\\": "src/"
+            "Resty\\": "src/"
         }
     },
     "require": {
