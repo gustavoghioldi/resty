@@ -15,7 +15,7 @@
  * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @link      http://www.mostofreddy.com.ar
  */
-namespace Zendo\Resty\Controller;
+namespace Resty\Controller;
 
 //DependencyInjection
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;

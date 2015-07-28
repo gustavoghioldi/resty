@@ -15,9 +15,9 @@
  * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @link      http://www.mostofreddy.com.ar
  */
-namespace Zendo\Resty\Builder;
+namespace Resty\Builder;
 
-use Zendo\Resty\Environment;
+use Resty\Environment;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\DependencyInjection\Container;
 

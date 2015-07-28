@@ -34,7 +34,7 @@ class EnvironmentTest extends PHPUnit_Framework_TestCase
      */
     public function testAttrsProd()
     {
-        $this->assertEquals("prod", \Zendo\Resty\Environment::PROD);
+        $this->assertEquals("prod", \Resty\Environment::PROD);
     }
     /**
      * Testea el attr test
@@ -43,7 +43,7 @@ class EnvironmentTest extends PHPUnit_Framework_TestCase
      */
     public function testAttrsTest()
     {
-        $this->assertEquals("test", \Zendo\Resty\Environment::TEST);
+        $this->assertEquals("test", \Resty\Environment::TEST);
     }   
     /**
      * Testea el attr dev
@@ -52,7 +52,7 @@ class EnvironmentTest extends PHPUnit_Framework_TestCase
      */
     public function testAttrsDev()
     {
-        $this->assertEquals("dev", \Zendo\Resty\Environment::DEV);
+        $this->assertEquals("dev", \Resty\Environment::DEV);
     }
     /**
      * Testea el metodo isProd
@@ -63,7 +63,7 @@ class EnvironmentTest extends PHPUnit_Framework_TestCase
      */
     public function testIsProd()
     {
-        $this->assertTrue(\Zendo\Resty\Environment::isProd('prod'));
+        $this->assertTrue(\Resty\Environment::isProd('prod'));
     }
     /**
      * Testea el metodo isTest
@@ -74,7 +74,7 @@ class EnvironmentTest extends PHPUnit_Framework_TestCase
      */
     public function testIsTest()
     {
-        $this->assertTrue(\Zendo\Resty\Environment::isTest('test'));
+        $this->assertTrue(\Resty\Environment::isTest('test'));
     }
     /**
      * Testea el metodo isDev
@@ -85,7 +85,7 @@ class EnvironmentTest extends PHPUnit_Framework_TestCase
      */
     public function testIsDev()
     {
-        $this->assertTrue(\Zendo\Resty\Environment::isDev('dev'));
+        $this->assertTrue(\Resty\Environment::isDev('dev'));
     }
 
     /**
@@ -99,6 +99,6 @@ class EnvironmentTest extends PHPUnit_Framework_TestCase
      */
     public function testValidate()
     {
-        $this->assertTrue(\Zendo\Resty\Environment::validate('dev'));
+        $this->assertTrue(\Resty\Environment::validate('dev'));
     }
 }

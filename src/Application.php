@@ -15,11 +15,11 @@
  * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @link      http://www.mostofreddy.com.ar
  */
-namespace Zendo\Resty;
+namespace Resty;
 
 // Resty
-use \Zendo\Resty\Environment;
-use \Zendo\Resty\Exceptions\InvalidEnvironmentException;
+use Resty\Environment;
+use Resty\Exceptions\InvalidEnvironmentException;
 
 // HttpFoundation
 use Symfony\Component\HttpFoundation\Request;
@@ -66,9 +66,9 @@ class Application implements HttpKernelInterface, TerminableInterface
      * Setea el ambiente. 
      * 
      * Los valores posibles son:
-     *  * \Zendo\Resty\Environment::DEV
-     *  * \Zendo\Resty\Environment::TEST
-     *  * \Zendo\Resty\Environment::DEV
+     *  * Resty\Environment::DEV
+     *  * Resty\Environment::TEST
+     *  * Resty\Environment::DEV
      *  
      * @param string $env Ambiente
      * 
