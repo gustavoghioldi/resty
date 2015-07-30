@@ -55,7 +55,11 @@ class ExceptionListener  implements EventSubscriberInterface
             "msg" => $exception->getMessage()
         ];
 
-        if ($exception instanceof HttpExceptionInterface) {
+        if ($exception instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException) {
+            $msg['msg'] = substr($msg['msg'], 0, strpos($msg['msg'], ":"));
+            $msg["http_code"] = $exception->getStatusCode();
+            $response->setStatusCode($exception->getStatusCode());
+        } else if ($exception instanceof HttpExceptionInterface) {
             $msg["http_code"] = $exception->getStatusCode();
             $response->setStatusCode($exception->getStatusCode());
             $response->headers->replace($exception->getHeaders());
