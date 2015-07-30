@@ -93,8 +93,8 @@ class Application implements HttpKernelInterface, TerminableInterface
         $rootPath = realpath(__DIR__.'/../../../../').'/';
         // Container
         $builder = new \Zendo\Di\Cache\Builder();
-        $builder->addConfigurationFiles(['config.yml', 'config.'.$this->env.'.yml'])
-            ->addConfigurationDirectories(
+        $builder->addFiles(['config.yml', 'config.'.$this->env.'.yml'])
+            ->addDirectories(
                 [
                     $rootPath.'vendor/restyphp/resty/config',
                     $rootPath.'config'
@@ -103,7 +103,6 @@ class Application implements HttpKernelInterface, TerminableInterface
             ->setCacheDir($rootPath.$this->projectCache)
             ->addCustomParameters('root_path', $rootPath)
             ->addCustomParameters('env', $this->env);
-
         //Si no es prod => genera la metadata para que ante cualquier cambio de la conf se actualice el cache del container
         //Si es prod => no genera el metadata para optimización
         if (Environment::PROD !== $this->env) {
