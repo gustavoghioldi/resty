@@ -93,10 +93,10 @@ class Application implements HttpKernelInterface, TerminableInterface
         $rootPath = realpath(__DIR__.'/../../../../').'/';
         // Container
         $builder = new \Zendo\Di\Cache\Builder();
-        $builder->addConfigurationFiles(['config.yml'])
+        $builder->addConfigurationFiles(['config.'.$this->env.'.yml'])
             ->addConfigurationDirectories(
                 [
-                    $rootPath.'vendor/zendo/resty/config',
+                    $rootPath.'vendor/restyphp/resty/config',
                     $rootPath.'config'
                 ]
             )
