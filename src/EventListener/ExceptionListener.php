@@ -65,6 +65,8 @@ class ExceptionListener  implements EventSubscriberInterface
             $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
         }
         $response->setContent(json_encode($msg));
+        $response->headers->set('Content-Type', 'application/json');
+
         $event->setResponse($response);
     }
     /**
