@@ -54,7 +54,7 @@ class ExceptionListener  implements EventSubscriberInterface
         $msg = [
             "msg" => $exception->getMessage()
         ];
-
+		//@TODO: quitar este if
         if ($exception instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException) {
             $msg['msg'] = substr($msg['msg'], 0, strpos($msg['msg'], ":"));
             $msg["http_code"] = $exception->getStatusCode();
@@ -63,6 +63,9 @@ class ExceptionListener  implements EventSubscriberInterface
             $msg["http_code"] = $exception->getStatusCode();
             $response->setStatusCode($exception->getStatusCode());
             $response->headers->replace($exception->getHeaders());
+        } else if ($exception instanceof \Resty\Exceptions\JsonSchemaException) {
+            $msg["details"] = $exception->getCustomMessage();
+            $msg["http_code"] = Response::HTTP_INTERNAL_SERVER_ERROR;
         } else {
             $msg["code"] = $exception->getCode();
             $msg["http_code"] = Response::HTTP_INTERNAL_SERVER_ERROR;

@@ -20,3 +20,7 @@ parameters:
     negotiatior.format_accept: 
         - 'application/xml'
         - 'application/json'
+
+    # Json Schema Validator
+    # --------------------------------------------------------
+    json.schema.validator: Resty\JsonSchema\Validator\RainbowJsonSchemaValidator

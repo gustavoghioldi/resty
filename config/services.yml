@@ -62,3 +62,10 @@ services:
         arguments:
             - "@http_kernel_event_dispatcher"
             - "@http_kernel_controller_resolver"
+
+    # Json Schema Validator
+    # -----------------------
+    json_schema_validator:
+        class: Resty\JsonSchema\JsonSchemaValidator
+        calls:
+            - ['setValidatorClass', ['%json.schema.validator%']]
