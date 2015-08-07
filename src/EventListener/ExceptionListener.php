@@ -36,13 +36,13 @@ use Symfony\Component\HttpFoundation\Response;
  * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @link      http://www.mostofreddy.com.ar
  */
-class ExceptionListener  implements EventSubscriberInterface
+class ExceptionListener implements EventSubscriberInterface
 {
     /**
      * Handler para los errores dentro de workflow de httpkernel
-     * 
+     *
      * @param GetResponseForExceptionEvent $event Una instancia de GetResponseForExceptionEvent
-     * 
+     *
      * @return void
      */
     public function onKernelException(GetResponseForExceptionEvent $event)
@@ -50,11 +50,44 @@ class ExceptionListener  implements EventSubscriberInterface
         $exception = $event->getException();
 
         $response = new Response();
+        $msg = [];
+
+        if ($exception instanceof Resty\Exceptions\RestyBaseException) {
+            //Si es una excepción del framework o de alguna que extienda el framework
+            //entonces uso el mensaje y código custom
+            $msg["exception_msg"] = $exception->getCustomMessage();
+            $msg["exception_code"] = $exception->getCustomCode();
+            $msg["http_code"] = Response::HTTP_INTERNAL_SERVER_ERROR;
+            $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+        } elseif ($exception instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException) {
+            //quita info sensible que no debe ser devuelta
+            $msg['exception_msg'] = substr($exception->getMessage(), 0, strpos($exception->getMessage(), ":"));
+            $msg['exception_code'] = $exception->getCode();
+            $msg["http_code"] = $exception->getStatusCode();
+            $response->setStatusCode($exception->getStatusCode());
+        } else {
+            //para lo demas
+            $msg['exception_msg'] = $exception->getMessage();
+            $msg['exception_code'] = $exception->getCode();
+            if ($exception instanceof HttpExceptionInterface) {
+                //si es una excepcion http setea el codigo http correspondiente
+                $msg["http_code"] = $exception->getStatusCode();
+                $response->setStatusCode($exception->getStatusCode());
+                $response->headers->replace($exception->getHeaders());
+            } else {
+                //cualquier otra cosa => 500
+                $msg["http_code"] = Response::HTTP_INTERNAL_SERVER_ERROR;
+                $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+            }
+        }
+
+        /*
         //@TODO tengo que formatear la respta al tipo solicitado
         $msg = [
-            "msg" => $exception->getMessage()
+            "exception" => $exception->getMessage(),
+            "exception_msg" => $exception->getCode()
         ];
-		//@TODO: quitar este if
+		//@TODO quitar este if
         if ($exception instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException) {
             $msg['msg'] = substr($msg['msg'], 0, strpos($msg['msg'], ":"));
             $msg["http_code"] = $exception->getStatusCode();
@@ -71,6 +104,7 @@ class ExceptionListener  implements EventSubscriberInterface
             $msg["http_code"] = Response::HTTP_INTERNAL_SERVER_ERROR;
             $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+        */
         $response->setContent(json_encode($msg));
         $response->headers->set('Content-Type', 'application/json');
 
@@ -78,7 +112,7 @@ class ExceptionListener  implements EventSubscriberInterface
     }
     /**
      * Suscribe el evento
-     * 
+     *
      * @return array
      */
     public static function getSubscribedEvents()

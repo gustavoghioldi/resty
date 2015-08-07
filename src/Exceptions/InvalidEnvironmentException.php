@@ -17,6 +17,8 @@
  */
 namespace Resty\Exceptions;
 
+use Resty\Exceptions\RestyBaseException;
+
 /**
  * InvalidEnvironmentException
  *
@@ -27,20 +29,8 @@ namespace Resty\Exceptions;
  * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @link      http://www.mostofreddy.com.ar
  */
-class InvalidEnvironmentException extends \Exception
+class InvalidEnvironmentException extends RestyBaseException
 {
     protected $customMessage = 'Ambiente inválido';
-
-    /**
-     * Custom construct
-     * 
-     * @param string          $message   Mensaje
-     * @param integer         $code      Código de error
-     * @param \Exception|null $exception Excepción previa
-     */
-    public function __construct($message = '', $code = 0, \Exception $exception = null)
-    {
-        $message = $this->customMessage;
-        parent::__construct($message, $code, $exception);
-    }
+    protected $customCode = 100001;
 }

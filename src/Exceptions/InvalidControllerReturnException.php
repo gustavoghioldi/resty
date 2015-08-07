@@ -17,6 +17,8 @@
  */
 namespace Resty\Exceptions;
 
+use Resty\Exceptions\RestyBaseException;
+
 /**
  * InvalidControllerReturnException
  *
@@ -29,20 +31,8 @@ namespace Resty\Exceptions;
  * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @link      http://www.mostofreddy.com.ar
  */
-class InvalidControllerReturnException extends \Exception
+class InvalidControllerReturnException extends RestyBaseException
 {
     protected $customMessage = 'El controlador no devolvio ningún valor o es inválido';
-
-    /**
-     * Custom construct
-     * 
-     * @param string          $message   Mensaje
-     * @param integer         $code      Código de error
-     * @param \Exception|null $exception Excepción previa
-     */
-    public function __construct($message = '', $code = 0, \Exception $exception = null)
-    {
-        $message = $this->customMessage;
-        parent::__construct($message, $code, $exception);
-    }
+    protected $customCode = 100002;
 }
