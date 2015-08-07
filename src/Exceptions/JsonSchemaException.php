@@ -33,4 +33,18 @@ class JsonSchemaException extends RestyBaseException
 {
     protected $customMessage = "Invalid Json Schema";
     protected $customCode = 100000;
+    /**
+     * Constructor
+     *
+     * @method __construct
+     *
+     * @param  string     $message  Mensaje
+     * @param  integer    $code     Código
+     * @param  \Exception $previous Excepcion anterior
+     */
+    public function __construct($message = "", $code = 0, \Exception $previous = null)
+    {
+        $this->setCustomMessage($message);
+        parent::__construct('', $code, $previous);
+    }
 }
