@@ -1,6 +1,6 @@
 <?php
 /**
- * RestyBaseException.php
+ * RestyTraitException.php
  *
  * PHP version 5.6+
  *
@@ -18,7 +18,7 @@
 namespace Resty\Exceptions;
 
 /**
- * RestyBaseException
+ * RestyTraitException
  *
  * @category  Resty
  * @package   Resty\Exceptions
@@ -27,57 +27,31 @@ namespace Resty\Exceptions;
  * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @link      http://www.mostofreddy.com.ar
  */
-class RestyBaseException extends \Exception
+trait RestyTraitException
 {
     /**
-     * Mensaje custom
+     * Detalle de la excepcion
      * @var string
      */
-    protected $customMessage = '';
+    protected $details = '';
     /**
-     * Código custom
-     * @var integer
-     */
-    protected $customCode = 0;
-    /**
-     * Setea mensaje de error
+     * Setea los detalles
      *
      * @param string|array $message Setea mensaje custom
      *
      * @return void
      */
-    public function setCustomMessage($message)
+    public function setDetails($details)
     {
-        $this->customMessage = $message;
+        $this->details = $details;
     }
     /**
-     * Devuelve el error custom
+     * Devuelve los detalles
      *
      * @return string|array
      */
-    public function getCustomMessage()
+    public function getDetails()
     {
-        return $this->customMessage;
-    }
-
-    /**
-     * Setea código de error custom
-     *
-     * @param string|array $customCode Codigo de error
-     *
-     * @return void
-     */
-    public function setCustomCode($customCode)
-    {
-        $this->customCode = $customCode;
-    }
-    /**
-     * Devuelve el código de error custom
-     *
-     * @return string|array
-     */
-    public function getCustomCode()
-    {
-        return $this->customCode;
+        return $this->details;
     }
 }

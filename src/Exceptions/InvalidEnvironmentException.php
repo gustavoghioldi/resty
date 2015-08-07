@@ -17,7 +17,9 @@
  */
 namespace Resty\Exceptions;
 
-use Resty\Exceptions\RestyBaseException;
+use Resty\Exceptions\RestyTraitException;
+// Symfony - HttpKernel
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * InvalidEnvironmentException
@@ -29,8 +31,22 @@ use Resty\Exceptions\RestyBaseException;
  * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @link      http://www.mostofreddy.com.ar
  */
-class InvalidEnvironmentException extends RestyBaseException
+class InvalidEnvironmentException extends HttpException
 {
-    protected $customMessage = 'Ambiente inválido';
-    protected $customCode = 100001;
+    use RestyTraitException;
+    const MSG = "Ambiente inválido";
+    const CODE = 100001;
+
+    /**
+     * Constructor.
+     *
+     * @param string     $message  The internal exception message
+     * @param \Exception $previous The previous exception
+     * @param int        $code     The internal exception code
+     */
+    public function __construct($message = null, \Exception $previous = null, $code = 0)
+    {
+        parent::__construct(500, static::MSG, $previous, array(), static::CODE);
+        $this->setDetails($message);
+    }
 }

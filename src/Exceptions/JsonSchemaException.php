@@ -17,7 +17,10 @@
  */
 namespace Resty\Exceptions;
 
-use Resty\Exceptions\RestyBaseException;
+use Resty\Exceptions\RestyTraitException;
+
+// Symfony - HttpKernel
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 /**
  * JsonSchemaException
@@ -29,22 +32,23 @@ use Resty\Exceptions\RestyBaseException;
  * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @link      http://www.mostofreddy.com.ar
  */
-class JsonSchemaException extends RestyBaseException
+class JsonSchemaException extends BadRequestHttpException
 {
-    protected $customMessage = "Invalid Json Schema";
-    protected $customCode = 100000;
+    use RestyTraitException;
+    const MSG = "Invalid Json Schema";
+    const CODE = 100000;
     /**
      * Constructor
      *
      * @method __construct
      *
      * @param  string     $message  Mensaje
-     * @param  integer    $code     Código
      * @param  \Exception $previous Excepcion anterior
+     * @param  integer    $code     Código
      */
-    public function __construct($message = "", $code = 0, \Exception $previous = null)
+    public function __construct($message = "", \Exception $previous = null, $code = 0)
     {
-        parent::__construct($this->getCustomMessage(), $code, $previous);
-        $this->setCustomMessage($message);
+        parent::__construct(static::MSG, $previous, static::CODE);
+        $this->setDetails($message);
     }
 }

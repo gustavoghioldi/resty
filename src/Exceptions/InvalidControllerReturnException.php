@@ -17,7 +17,9 @@
  */
 namespace Resty\Exceptions;
 
-use Resty\Exceptions\RestyBaseException;
+use Resty\Exceptions\RestyTraitException;
+// Symfony - HttpKernel
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * InvalidControllerReturnException
@@ -31,8 +33,22 @@ use Resty\Exceptions\RestyBaseException;
  * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @link      http://www.mostofreddy.com.ar
  */
-class InvalidControllerReturnException extends RestyBaseException
+class InvalidControllerReturnException extends HttpException
 {
-    protected $customMessage = 'El controlador no devolvio ningún valor o es inválido';
-    protected $customCode = 100002;
+    use RestyTraitException;
+    const MSG = 'El controlador no devolvio ningún valor o es inválido';
+    const CODE = 100002;
+
+    /**
+     * Constructor.
+     *
+     * @param string     $message  The internal exception message
+     * @param \Exception $previous The previous exception
+     * @param int        $code     The internal exception code
+     */
+    public function __construct($message = null, \Exception $previous = null, $code = 0)
+    {
+        parent::__construct(500, static::MSG, $previous, array(), static::CODE);
+        $this->setDetails($message);
+    }
 }
