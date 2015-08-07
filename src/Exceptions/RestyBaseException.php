@@ -69,7 +69,7 @@ class RestyBaseException extends \Exception
      */
     public function setCustomCode($customCode)
     {
-        $this->$customCode = $customCode;
+        $this->customCode = $customCode;
     }
     /**
      * Devuelve el código de error custom
@@ -78,6 +78,6 @@ class RestyBaseException extends \Exception
      */
     public function getCustomCode()
     {
-        return $this->$customCode;
+        return $this->customCode;
     }
 }

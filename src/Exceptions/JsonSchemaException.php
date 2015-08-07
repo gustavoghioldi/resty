@@ -44,7 +44,7 @@ class JsonSchemaException extends RestyBaseException
      */
     public function __construct($message = "", $code = 0, \Exception $previous = null)
     {
+        parent::__construct($this->getCustomMessage(), $code, $previous);
         $this->setCustomMessage($message);
-        parent::__construct('', $code, $previous);
     }
 }

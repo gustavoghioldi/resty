@@ -52,7 +52,13 @@ class ExceptionListener implements EventSubscriberInterface
         $response = new Response();
         $msg = [];
 
-        if ($exception instanceof Resty\Exceptions\RestyBaseException) {
+        if ($exception instanceof \Resty\Exceptions\JsonSchemaException) {
+            $msg["exception_msg"] = $exception->getMessage();
+            $msg["exception_code"] = $exception->getCustomCode();
+            $msg["exception_details"] = $exception->getCustomMessage();
+            $msg["http_code"] = Response::HTTP_INTERNAL_SERVER_ERROR;
+            $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+        } elseif ($exception instanceof \Resty\Exceptions\RestyBaseException) {
             //Si es una excepción del framework o de alguna que extienda el framework
             //entonces uso el mensaje y código custom
             $msg["exception_msg"] = $exception->getCustomMessage();
