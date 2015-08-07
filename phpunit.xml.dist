@@ -1,17 +1,17 @@
-<phpunit bootstrap="bootstrap.php">
+<phpunit bootstrap="tests/bootstrap.php">
     <testsuites>
         <!-- Suite test -->
         <testsuite name="AllTests">
-            <directory>src</directory>
+            <directory>tests/src</directory>
         </testsuite>
     </testsuites>
 
     <!-- files to covered -->
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">../src/</directory>
+            <directory suffix=".php">src/</directory>
             <exclude>
-                <directory suffix=".php">./</directory>
+                <directory suffix=".php">./tests/</directory>
             </exclude>
         </whitelist>
     </filter>

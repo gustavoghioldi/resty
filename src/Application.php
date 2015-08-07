@@ -63,15 +63,15 @@ class Application implements HttpKernelInterface, TerminableInterface
     {
     }
     /**
-     * Setea el ambiente. 
-     * 
+     * Setea el ambiente.
+     *
      * Los valores posibles son:
      *  * Resty\Environment::DEV
      *  * Resty\Environment::TEST
      *  * Resty\Environment::DEV
-     *  
+     *
      * @param string $env Ambiente
-     * 
+     *
      * @return self
      */
     public function setEnv($env)
@@ -85,7 +85,7 @@ class Application implements HttpKernelInterface, TerminableInterface
     /**
      * Crea el Container con todos los archivos de configuracion y genera el cache si el ambiente es producción.
      * Si el ambiente es prod y ya esta cacheado no lo vuelve a generar
-     * 
+     *
      * @return void
      */
     public function createContainer()
@@ -108,12 +108,12 @@ class Application implements HttpKernelInterface, TerminableInterface
         if (Environment::PROD !== $this->env) {
             $builder->setIsDebug(true);
         }
-        
+
         $this->container = $builder->get();
     }
     /**
      * Devuelve el container
-     * 
+     *
      * @return Symfony\Component\DependencyInjection\ContainerInterface
      */
     protected function getContainer()

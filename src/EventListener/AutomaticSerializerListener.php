@@ -82,7 +82,7 @@ class AutomaticSerializerListener implements EventSubscriberInterface, Container
         if ($response instanceof Response) {
             return;
         }
-        
+
         //obtiene el negociador del formato de respuesta
         $negotiator = $this->container->get('negotiatior_format');
         //obtiene el mejor formato
@@ -113,7 +113,7 @@ class AutomaticSerializerListener implements EventSubscriberInterface, Container
     }
     /**
      * Suscribe el evento
-     * 
+     *
      * @return array
      */
     public static function getSubscribedEvents()
