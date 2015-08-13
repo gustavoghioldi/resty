@@ -45,7 +45,7 @@ class Application implements HttpKernelInterface, TerminableInterface
      * Por defecto el proyecto debe tener un directorio que se llama cache en el rootpath y debe tener permisos de escritura
      */
     const CACHE_DIR_DEFAULT = 'cache/';
-    const CONFIG_DIR = 'config';
+    const CONFIG_DIR = 'config/';
     /**
      * Instancia del container
      * @var Symfony\Component\DependencyInjection\ContainerInterface
