@@ -78,11 +78,11 @@ class Application implements HttpKernelInterface, TerminableInterface
     public function __construct()
     {
         $this->projectRootPath = realpath(__DIR__.'/../../../../').'/';
-        $this->env = Resty\Environment::DEV;
+        $this->env = \Resty\Environment::DEV;
     }
     /**
      * Devuelve el directorio donde se almacenara el cache
-     * 
+     *
      * @return string
      */
     protected function cacheDir()
@@ -156,7 +156,7 @@ class Application implements HttpKernelInterface, TerminableInterface
         //resty config
         $paths[] = realpath(__DIR__.'/../')."/".static::CONFIG_DIR;
         //project config
-        $paths[] = $projectRootPath."/".static::CONFIG_DIR;
+        $paths[] = $this->projectRootPath."/".static::CONFIG_DIR;
         return $paths;
     }
     /**
@@ -171,7 +171,7 @@ class Application implements HttpKernelInterface, TerminableInterface
         $builder = new \Zendo\Di\Cache\Builder();
         $builder->addFiles($this->getConfigFileNames())
             ->addDirectories($this->getConfigPaths())
-            ->setCacheDir($rootPath.$this->cacheDir())
+            ->setCacheDir($this->cacheDir())
             ->addCustomParameters('root_path', $this->projectRootPath)
             ->addCustomParameters('env', $this->env);
         //Si no es prod => genera la metadata para que ante cualquier cambio de la conf se actualice el cache del container
@@ -191,7 +191,7 @@ class Application implements HttpKernelInterface, TerminableInterface
     {
         return $this->container;
     }
-    
+
     /**
      * Handles the request and delivers the response.
      *
