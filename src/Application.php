@@ -41,6 +41,12 @@ use Symfony\Component\HttpKernel\TerminableInterface;
 class Application implements HttpKernelInterface, TerminableInterface
 {
     /**
+     * Directorio donde se almacenara el cache
+     * Por defecto el proyecto debe tener un directorio que se llama cache en el rootpath y debe tener permisos de escritura
+     */
+    const CACHE_DIR_DEFAULT = 'cache/';
+    const CONFIG_DIR = 'config';
+    /**
      * Instancia del container
      * @var Symfony\Component\DependencyInjection\ContainerInterface
      */
@@ -51,24 +57,62 @@ class Application implements HttpKernelInterface, TerminableInterface
      */
     protected $env = null;
     /**
-     * Directorio cache
+     * RootPath del proyecto
      * @var string
      */
-    protected $projectCache = 'cache/';
-
+    protected $projectRootPath = '';
+    /**
+     * Listado de providers
+     * @var array
+     */
     protected $providers = [];
-
+    /**
+     * Paths donde buscar los archivos de configuracion
+     * Aca estarán todos los paths que definan lost distintos provider y los custom
+     * @var array
+     */
     protected $configPaths = [];
     /**
      * Constructor
      */
     public function __construct()
     {
+        $this->projectRootPath = realpath(__DIR__.'/../../../../').'/';
+        $this->env = Resty\Environment::DEV;
+    }
+    /**
+     * Devuelve el directorio donde se almacenara el cache
+     * 
+     * @return string
+     */
+    protected function cacheDir()
+    {
+        return $this->projectRootPath.static::CACHE_DIR_DEFAULT;
+    }
+    /**
+     * Setea el ambiente.
+     *
+     * Los valores posibles son:
+     *  * Resty\Environment::DEV
+     *  * Resty\Environment::TEST
+     *  * Resty\Environment::PROD
+     *
+     * @param string $env Ambiente
+     *
+     * @return self
+     */
+    public function setEnv($env)
+    {
+        if (false === Environment::validate($env)) {
+            throw new InvalidEnvironmentException("Invalid Environment");
+        }
+        $this->env = $env;
+        return $this;
     }
     /**
      * Registra un provider
      *
-     * @param [type] $provider [description]
+     * @param Object $provider Una instancia del provider
      *
      * @return self
      */
@@ -91,27 +135,8 @@ class Application implements HttpKernelInterface, TerminableInterface
         return $this;
     }
     /**
-     * Setea el ambiente.
-     *
-     * Los valores posibles son:
-     *  * Resty\Environment::DEV
-     *  * Resty\Environment::TEST
-     *  * Resty\Environment::DEV
-     *
-     * @param string $env Ambiente
-     *
-     * @return self
-     */
-    public function setEnv($env)
-    {
-        if (false === Environment::validate($env)) {
-            throw new InvalidEnvironmentException("Invalid Environment");
-        }
-        $this->env = $env;
-        return $this;
-    }
-    /**
-     * Devuelve los nombres de los archivos de configuración que se buscan para armar el container
+     * Devuelve los nombres de los archivos de configuración que se buscan para armar el container.
+     * Solo tiene en cuenta: config.yml y config.{env}.yml
      *
      * @return array
      */
@@ -120,15 +145,18 @@ class Application implements HttpKernelInterface, TerminableInterface
         return ['config.yml', 'config.'.$this->env.'.yml'];
     }
     /**
-     * Devuelve los paths donde busca el container los archivos de configuracion
+     * Devuelve los paths donde busca el container los archivos de configuración
      *
      * @return array
      */
     protected function getConfigPaths()
     {
+        //custom & provider config
         $paths = $this->configPaths;
-        $paths[] = realpath(__DIR__.'/../')."/config";
-        $paths[] = realpath(__DIR__.'/../../../../')."/config";
+        //resty config
+        $paths[] = realpath(__DIR__.'/../')."/".static::CONFIG_DIR;
+        //project config
+        $paths[] = $projectRootPath."/".static::CONFIG_DIR;
         return $paths;
     }
     /**
@@ -139,13 +167,12 @@ class Application implements HttpKernelInterface, TerminableInterface
      */
     public function createContainer()
     {
-        $rootPath = realpath(__DIR__.'/../../../../').'/';
         // Container
         $builder = new \Zendo\Di\Cache\Builder();
         $builder->addFiles($this->getConfigFileNames())
             ->addDirectories($this->getConfigPaths())
-            ->setCacheDir($rootPath.$this->projectCache)
-            ->addCustomParameters('root_path', $rootPath)
+            ->setCacheDir($rootPath.$this->cacheDir())
+            ->addCustomParameters('root_path', $this->projectRootPath)
             ->addCustomParameters('env', $this->env);
         //Si no es prod => genera la metadata para que ante cualquier cambio de la conf se actualice el cache del container
         //Si es prod => no genera el metadata para optimización
@@ -164,6 +191,7 @@ class Application implements HttpKernelInterface, TerminableInterface
     {
         return $this->container;
     }
+    
     /**
      * Handles the request and delivers the response.
      *

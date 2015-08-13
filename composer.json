@@ -27,6 +27,7 @@
         "symfony/event-dispatcher": "2.7.*",
         "symfony/yaml": "2.7.*",
         "symfony/config": "2.7.*",
+        "symfony/console": "2.7.*",
         "willdurand/negotiation": "1.4.*",
         "justinrainbow/json-schema": "1.4.*"
     },
