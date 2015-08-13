@@ -56,11 +56,39 @@ class Application implements HttpKernelInterface, TerminableInterface
      */
     protected $projectCache = 'cache/';
 
+    protected $providers = [];
+
+    protected $configPaths = [];
     /**
      * Constructor
      */
     public function __construct()
     {
+    }
+    /**
+     * Registra un provider
+     *
+     * @param [type] $provider [description]
+     *
+     * @return self
+     */
+    public function register($provider)
+    {
+        $this->providers[] = $provider;
+        $provider->register($this);
+        return $this;
+    }
+    /**
+     * Agrega un path donde buscar las configuraciones
+     *
+     * @param string $path Path donde hay archivos de configuracion
+     *
+     * @return void
+     */
+    public function addConfigPath($path)
+    {
+        $this->configPaths[] = $path;
+        return $this;
     }
     /**
      * Setea el ambiente.
@@ -83,6 +111,27 @@ class Application implements HttpKernelInterface, TerminableInterface
         return $this;
     }
     /**
+     * Devuelve los nombres de los archivos de configuración que se buscan para armar el container
+     *
+     * @return array
+     */
+    protected function getConfigFileNames()
+    {
+        return ['config.yml', 'config.'.$this->env.'.yml'];
+    }
+    /**
+     * Devuelve los paths donde busca el container los archivos de configuracion
+     *
+     * @return array
+     */
+    protected function getConfigPaths()
+    {
+        $paths = $this->configPaths;
+        $paths[] = realpath(__DIR__.'/../')."/config";
+        $paths[] = realpath(__DIR__.'/../../../../')."/config";
+        return $paths;
+    }
+    /**
      * Crea el Container con todos los archivos de configuracion y genera el cache si el ambiente es producción.
      * Si el ambiente es prod y ya esta cacheado no lo vuelve a generar
      *
@@ -93,13 +142,8 @@ class Application implements HttpKernelInterface, TerminableInterface
         $rootPath = realpath(__DIR__.'/../../../../').'/';
         // Container
         $builder = new \Zendo\Di\Cache\Builder();
-        $builder->addFiles(['config.yml', 'config.'.$this->env.'.yml'])
-            ->addDirectories(
-                [
-                    $rootPath.'vendor/restyphp/resty/config',
-                    $rootPath.'config'
-                ]
-            )
+        $builder->addFiles($this->getConfigFileNames())
+            ->addDirectories($this->getConfigPaths())
             ->setCacheDir($rootPath.$this->projectCache)
             ->addCustomParameters('root_path', $rootPath)
             ->addCustomParameters('env', $this->env);
