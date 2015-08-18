@@ -2,7 +2,7 @@
 /**
  * Application.php
  *
- * PHP version 5.6+
+ * PHP version 5.5+
  *
  * Copyright (c) 2015 Federico Lozada Mosto <mosto.federico@gmail.com>
  * For the full copyright and license information, please view the LICENSE file that was distributed

@@ -1,7 +1,7 @@
 {
     "name": "restyphp/resty",
     "description": "PHP library to create REST APIs",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "keywords": [],
     "homepage": "https://github.com/mostofreddy/resty",
     "type": "library",
