@@ -1,6 +1,6 @@
 <?php
 /**
- * InvalidEnvironmentException.php
+ * RestyTraitException.php
  *
  * PHP version 5.6+
  *
@@ -17,12 +17,8 @@
  */
 namespace Resty\Exceptions;
 
-use Resty\Exceptions\RestyTraitException;
-// Symfony - HttpKernel
-use Symfony\Component\HttpKernel\Exception\HttpException;
-
 /**
- * InvalidEnvironmentException
+ * RestyTraitException
  *
  * @category  Resty
  * @package   Resty\Exceptions
@@ -31,22 +27,31 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @link      http://www.mostofreddy.com.ar
  */
-class InvalidEnvironmentException extends HttpException
+trait RestyTraitException
 {
-    use RestyTraitException;
-    const MSG = "Ambiente inválido";
-    const CODE = 100001;
-
     /**
-     * Constructor.
-     *
-     * @param string     $message  The internal exception message
-     * @param \Exception $previous The previous exception
-     * @param int        $code     The internal exception code
+     * Detalle de la excepcion
+     * @var string
      */
-    public function __construct($message = null, \Exception $previous = null, $code = 0)
+    protected $details = '';
+    /**
+     * Setea los detalles
+     *
+     * @param string|array $message Setea mensaje custom
+     *
+     * @return void
+     */
+    public function setDetails($details)
     {
-        parent::__construct(500, static::MSG, $previous, array(), static::CODE);
-        $this->setDetails($message);
+        $this->details = $details;
+    }
+    /**
+     * Devuelve los detalles
+     *
+     * @return string|array
+     */
+    public function getDetails()
+    {
+        return $this->details;
     }
 }

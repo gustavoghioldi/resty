@@ -1,6 +1,6 @@
 <?php
 /**
- * InvalidEnvironmentException.php
+ * JsonSchemaException.php
  *
  * PHP version 5.6+
  *
@@ -18,11 +18,12 @@
 namespace Resty\Exceptions;
 
 use Resty\Exceptions\RestyTraitException;
+
 // Symfony - HttpKernel
-use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 /**
- * InvalidEnvironmentException
+ * JsonSchemaException
  *
  * @category  Resty
  * @package   Resty\Exceptions
@@ -31,22 +32,23 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @link      http://www.mostofreddy.com.ar
  */
-class InvalidEnvironmentException extends HttpException
+class JsonSchemaException extends BadRequestHttpException
 {
     use RestyTraitException;
-    const MSG = "Ambiente inválido";
-    const CODE = 100001;
-
+    const MSG = "Invalid Json Schema";
+    const CODE = 100000;
     /**
-     * Constructor.
+     * Constructor
      *
-     * @param string     $message  The internal exception message
-     * @param \Exception $previous The previous exception
-     * @param int        $code     The internal exception code
+     * @method __construct
+     *
+     * @param  string     $message  Mensaje
+     * @param  \Exception $previous Excepcion anterior
+     * @param  integer    $code     Código
      */
-    public function __construct($message = null, \Exception $previous = null, $code = 0)
+    public function __construct($message = "", \Exception $previous = null, $code = 0)
     {
-        parent::__construct(500, static::MSG, $previous, array(), static::CODE);
+        parent::__construct(static::MSG, $previous, static::CODE);
         $this->setDetails($message);
     }
 }

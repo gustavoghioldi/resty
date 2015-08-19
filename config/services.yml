@@ -6,13 +6,13 @@ services:
     # -----------------------
     router:
         class: Symfony\Component\Routing\Router
-        factory: [Zendo\Resty\Builder\RouterBuilder, create]
+        factory: [Resty\Builder\RouterBuilder, create]
         arguments: 
             - '@service_container'
 
     router_file_locator:
         class: Symfony\Component\Config\FileLocator
-        factory: [Zendo\Resty\Builder\FileLocatorBuilder, create]
+        factory: [Resty\Builder\FileLocatorBuilder, create]
         arguments: 
             - '@service_container'
 
@@ -22,7 +22,7 @@ services:
 
     router_matcher:
         class: Symfony\Component\Routing\Matcher\UrlMatcherInterface
-        factory: [Zendo\Resty\Builder\RouterMatcherBuilder, create]
+        factory: [Resty\Builder\RouterMatcherBuilder, create]
         arguments: 
             - '@service_container'
 
@@ -34,12 +34,12 @@ services:
             - '@router_matcher'
 
     listener_automatic_serialize:
-        class: Zendo\Resty\EventListener\AutomaticSerializerListener
+        class: Resty\EventListener\AutomaticSerializerListener
         calls:
             - ['setContainer', ['@service_container']]
 
     listener_exception:
-        class: Zendo\Resty\EventListener\ExceptionListener
+        class: Resty\EventListener\ExceptionListener
     
     # HttpKernel
     # -----------------------
@@ -52,7 +52,7 @@ services:
             - [addSubscriber, ["@listener_exception"]]
 
     http_kernel_controller_resolver:
-        class: Zendo\Resty\Controller\ControllerResolver
+        class: Resty\Controller\ControllerResolver
         calls:
             - ['setContainer', ['@service_container']]
             
@@ -62,3 +62,10 @@ services:
         arguments:
             - "@http_kernel_event_dispatcher"
             - "@http_kernel_controller_resolver"
+
+    # Json Schema Validator
+    # -----------------------
+    json_schema_validator:
+        class: Resty\JsonSchema\JsonSchemaValidator
+        calls:
+            - ['setValidatorClass', ['%json.schema.validator%']]

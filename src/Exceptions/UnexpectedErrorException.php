@@ -31,11 +31,11 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @link      http://www.mostofreddy.com.ar
  */
-class InvalidEnvironmentException extends HttpException
+class UnexpectedErrorException extends HttpException
 {
     use RestyTraitException;
-    const MSG = "Ambiente inválido";
-    const CODE = 100001;
+    const MSG = "Internal server error";
+    const CODE = 100003;
 
     /**
      * Constructor.
@@ -47,6 +47,5 @@ class InvalidEnvironmentException extends HttpException
     public function __construct($message = null, \Exception $previous = null, $code = 0)
     {
         parent::__construct(500, static::MSG, $previous, array(), static::CODE);
-        $this->setDetails($message);
     }
 }

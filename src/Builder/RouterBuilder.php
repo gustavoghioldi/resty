@@ -17,9 +17,16 @@
  */
 namespace Resty\Builder;
 
+// Resty
 use Resty\Environment;
+
+// Symfony - Routing
 use Symfony\Component\Routing\Router;
+use Symfony\Component\Routing\RequestContext;
+// Symfony - DependencyInjection
 use Symfony\Component\DependencyInjection\Container;
+// Symfony - HttpFoundation
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * RouterBuilder
@@ -50,11 +57,13 @@ class RouterBuilder implements BuilderInterface
         if (Environment::isProd($container->getParameter("env"))) {
             $opts['cache_dir'] = $container->getParameter('root_path').$container->getParameter('route.cache.path');
         }
+        $context = new RequestContext();
+        $context->fromRequest(Request::createFromGlobals());
         return new Router(
             $container->get('router_yaml_file_loader'),
             $container->getParameter('route.routes.filename'),
             $opts,
-            null
+            $context
         );
     }
 }

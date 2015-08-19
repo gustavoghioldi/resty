@@ -17,14 +17,17 @@
  */
 namespace Resty\EventListener;
 
-//EventDispatcher
+// Resty - Exceptions
+use Resty\Exceptions\InvalidControllerReturnException;
+
+// Symfony - EventDispatcher
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-//HttpKernel
+// Symfony - HttpKernel
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-//HttpFoundation
+// Symfony - HttpFoundation
 use Symfony\Component\HttpFoundation\Response;
-//DependencyInjection
+// Symfony - DependencyInjection
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -70,11 +73,16 @@ class AutomaticSerializerListener implements EventSubscriberInterface, Container
         //obtiene la respuesta
         $response = $event->getControllerResult();
 
+        //valida que el usuario haya devuelto algun valor en el método del controller
+        if (is_null($response)) {
+            throw new InvalidControllerReturnException();
+        }
+
         //si es del tipo Response => no se hace nada
         if ($response instanceof Response) {
             return;
         }
-        
+
         //obtiene el negociador del formato de respuesta
         $negotiator = $this->container->get('negotiatior_format');
         //obtiene el mejor formato
@@ -105,7 +113,7 @@ class AutomaticSerializerListener implements EventSubscriberInterface, Container
     }
     /**
      * Suscribe el evento
-     * 
+     *
      * @return array
      */
     public static function getSubscribedEvents()

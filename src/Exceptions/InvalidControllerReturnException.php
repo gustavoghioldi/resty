@@ -1,6 +1,6 @@
 <?php
 /**
- * InvalidEnvironmentException.php
+ * InvalidControllerReturnException.php
  *
  * PHP version 5.6+
  *
@@ -22,7 +22,9 @@ use Resty\Exceptions\RestyTraitException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
- * InvalidEnvironmentException
+ * InvalidControllerReturnException
+ *
+ * Esta excepción se utiliza cuando el controlador devolvio un valor inválido o no devolvio ningún valor
  *
  * @category  Resty
  * @package   Resty\Exceptions
@@ -31,11 +33,11 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @link      http://www.mostofreddy.com.ar
  */
-class InvalidEnvironmentException extends HttpException
+class InvalidControllerReturnException extends HttpException
 {
     use RestyTraitException;
-    const MSG = "Ambiente inválido";
-    const CODE = 100001;
+    const MSG = 'El controlador no devolvio ningún valor o es inválido';
+    const CODE = 100002;
 
     /**
      * Constructor.
