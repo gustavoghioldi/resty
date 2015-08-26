@@ -2,7 +2,7 @@
 /**
  * EnvironmentTest
  *
- * PHP version 5.6+
+ * PHP version 5.5+
  *
  * Copyright (c) 2015 Federico Lozada Mosto <mosto.federico@gmail.com>
  * For the full copyright and license information, please view the LICENSE file that was distributed
@@ -29,7 +29,7 @@ class EnvironmentTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Testea el attr prod
-     * 
+     *
      * @return void
      */
     public function testAttrsProd()
@@ -38,16 +38,16 @@ class EnvironmentTest extends PHPUnit_Framework_TestCase
     }
     /**
      * Testea el attr test
-     * 
+     *
      * @return void
      */
     public function testAttrsTest()
     {
         $this->assertEquals("test", \Resty\Environment::TEST);
-    }   
+    }
     /**
      * Testea el attr dev
-     * 
+     *
      * @return void
      */
     public function testAttrsDev()
@@ -58,7 +58,7 @@ class EnvironmentTest extends PHPUnit_Framework_TestCase
      * Testea el metodo isProd
      *
      * @depends testAttrsProd
-     * 
+     *
      * @return void
      */
     public function testIsProd()
@@ -69,7 +69,7 @@ class EnvironmentTest extends PHPUnit_Framework_TestCase
      * Testea el metodo isTest
      *
      * @depends testAttrsTest
-     * 
+     *
      * @return void
      */
     public function testIsTest()
@@ -80,7 +80,7 @@ class EnvironmentTest extends PHPUnit_Framework_TestCase
      * Testea el metodo isDev
      *
      * @depends testAttrsDev
-     * 
+     *
      * @return void
      */
     public function testIsDev()
@@ -94,7 +94,7 @@ class EnvironmentTest extends PHPUnit_Framework_TestCase
      * @depends testAttrsDev
      * @depends testAttrsTest
      * @depends testAttrsProd
-     * 
+     *
      * @return void
      */
     public function testValidate()
