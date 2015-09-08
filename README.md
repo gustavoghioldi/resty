@@ -6,7 +6,7 @@ Librería para crear servicios Rest
 Version
 -------
 
-__0.3.3__
+__0.3.4__
 
 License
 -------
