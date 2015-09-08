@@ -59,6 +59,7 @@ class Container
         $containerBuilder = new ContainerBuilder();
         $this->loadConfigurationFiles($containerBuilder);
         $this->loadCustomParameters($containerBuilder);
+        $container->compile();
         return $containerBuilder;
     }
     /**
