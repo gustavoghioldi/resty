@@ -69,3 +69,12 @@ services:
         class: Resty\JsonSchema\JsonSchemaValidator
         calls:
             - ['setValidatorClass', ['%json.schema.validator%']]
+
+    # Logger
+    # -----------------------
+    logger.default:
+        class: Resty\Logger\Logger
+        arguments: 
+            - 'default'
+        calls:
+            - ['configureStreaming', ['%logger.default%']]

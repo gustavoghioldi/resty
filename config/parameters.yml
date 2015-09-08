@@ -24,3 +24,10 @@ parameters:
     # Json Schema Validator
     # --------------------------------------------------------
     json.schema.validator: Resty\JsonSchema\Validator\RainbowJsonSchemaValidator
+
+    # Logger
+    # -----------------------
+    logger.default: 
+        handler: \Monolog\Handler\StreamHandler
+        file: '%root_path%logs/default.log'
+        level: DEBUG
