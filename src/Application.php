@@ -41,11 +41,10 @@ use Symfony\Component\HttpKernel\TerminableInterface;
 class Application implements HttpKernelInterface, TerminableInterface
 {
     /**
-     * Directorio donde se almacenara el cache
+     * Directorio donde se almacenara toda la cache
      * Por defecto el proyecto debe tener un directorio que se llama cache en el rootpath y debe tener permisos de escritura
      */
     const CACHE_DIR_DEFAULT = 'cache/';
-    const CONFIG_DIR = 'config/';
     /**
      * Instancia del container
      * @var Symfony\Component\DependencyInjection\ContainerInterface
@@ -67,27 +66,36 @@ class Application implements HttpKernelInterface, TerminableInterface
      */
     protected $providers = [];
     /**
-     * Paths donde buscar los archivos de configuracion
-     * Aca estarán todos los paths que definan lost distintos provider y los custom
+     * Array con directorios de otros archivos de configuracion. Por ejemplo es utilizado para las configuraciones de los providers
      * @var array
      */
     protected $configPaths = [];
+    /**
+     * Dendencias
+     * @var array
+     */
+    protected $dependencies = [
+        "container" => '\Resty\Container\Factory'
+    ];
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->projectRootPath = realpath(__DIR__.'/../../../../').'/';
         $this->env = \Resty\Environment::DEV;
     }
+
     /**
-     * Devuelve el directorio donde se almacenara el cache
+     * Crea el Container con todos los archivos de configuracion y genera el cache si el ambiente es producción.
+     * Si el ambiente es prod y ya esta cacheado no lo vuelve a generar
      *
-     * @return string
+     * @return void
      */
-    protected function cacheDir()
+    public function createContainer()
     {
-        return $this->projectRootPath.static::CACHE_DIR_DEFAULT;
+        $class = $this->dependencies['container'];
+        $containerFactory = new $class;
+        $this->container = $containerFactory->create($this);
     }
     /**
      * Setea el ambiente.
@@ -108,6 +116,40 @@ class Application implements HttpKernelInterface, TerminableInterface
         }
         $this->env = $env;
         return $this;
+    }
+    /**
+     * Devuelve el ambiente seteado
+     *
+     * @return string
+     */
+    public function getEnv()
+    {
+        return $this->env;
+    }
+    /**
+     * Setea el rootpath del proyecto
+     *
+     * @param string $root Root path del proyecto
+     *
+     * @return self
+     */
+    public function setRootPath($root = null)
+    {
+        if (null === $root) {
+            $this->projectRootPath = realpath(__DIR__.'/../../../../').'/';
+        } else {
+            $this->projectRootPath = rtrim($root, '/').'/';
+        }
+        return $this;
+    }
+    /**
+     * Devuelve el root path del proyecto
+     *
+     * @return string
+     */
+    public function getRootPath()
+    {
+        return $this->projectRootPath;
     }
     /**
      * Registra un provider
@@ -135,52 +177,22 @@ class Application implements HttpKernelInterface, TerminableInterface
         return $this;
     }
     /**
-     * Devuelve los nombres de los archivos de configuración que se buscan para armar el container.
-     * Solo tiene en cuenta: config.yml y config.{env}.yml
+     * Devuelve los paths de configuracion
      *
      * @return array
      */
-    protected function getConfigFileNames()
+    public function getConfigPath()
     {
-        return ['config.yml', 'config.'.$this->env.'.yml'];
+        return $this->configPaths;
     }
     /**
-     * Devuelve los paths donde busca el container los archivos de configuración
+     * Devuelve el directorio donde se almacenara el cache
      *
-     * @return array
+     * @return string
      */
-    protected function getConfigPaths()
+    public function getCacheDir()
     {
-        //custom & provider config
-        $paths = $this->configPaths;
-        //resty config
-        $paths[] = realpath(__DIR__.'/../')."/".static::CONFIG_DIR;
-        //project config
-        $paths[] = $this->projectRootPath."/".static::CONFIG_DIR;
-        return $paths;
-    }
-    /**
-     * Crea el Container con todos los archivos de configuracion y genera el cache si el ambiente es producción.
-     * Si el ambiente es prod y ya esta cacheado no lo vuelve a generar
-     *
-     * @return void
-     */
-    public function createContainer()
-    {
-        // Container
-        $builder = new \Zendo\Di\Cache\Builder();
-        $builder->addFiles($this->getConfigFileNames())
-            ->addDirectories($this->getConfigPaths())
-            ->setCacheDir($this->cacheDir())
-            ->addCustomParameters('root_path', $this->projectRootPath)
-            ->addCustomParameters('env', $this->env);
-        //Si no es prod => genera la metadata para que ante cualquier cambio de la conf se actualice el cache del container
-        //Si es prod => no genera el metadata para optimización
-        if (Environment::PROD !== $this->env) {
-            $builder->setIsDebug(true);
-        }
-
-        $this->container = $builder->get();
+        return $this->projectRootPath.static::CACHE_DIR_DEFAULT;
     }
     /**
      * Devuelve el container
@@ -201,6 +213,9 @@ class Application implements HttpKernelInterface, TerminableInterface
      */
     public function run(Request $request = null)
     {
+        // setea el rootpath
+        $this->setRootPath();
+
         // crea el container
         $this->createContainer();
 
