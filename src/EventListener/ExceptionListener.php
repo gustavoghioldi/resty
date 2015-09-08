@@ -50,13 +50,20 @@ class ExceptionListener implements EventSubscriberInterface
         $exception = $event->getException();
 
         $response = new Response();
-        $msg = [];
+
+        $msg = [
+            'exception_msg' => '',
+            'exception_code' => $exception->getCode(),
+            'exception_details' => '',
+            'http_code' => '',
+            'http_msg' => '',
+            'trace' => [] //@TODO
+        ];
 
         if ($exception instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException) {
             //quita info sensible que no debe ser devuelta
             $msg['exception_msg'] = substr($exception->getMessage(), 0, strpos($exception->getMessage(), ":"));
             $msg["http_code"] = $exception->getStatusCode();
-            $response->setStatusCode($exception->getStatusCode());
             $response->headers->replace($exception->getHeaders());
         } else {
             //para lo demas
@@ -65,20 +72,25 @@ class ExceptionListener implements EventSubscriberInterface
             if ($exception instanceof HttpExceptionInterface) {
                 //si es una excepcion http setea el codigo http correspondiente
                 $msg["http_code"] = $exception->getStatusCode();
-                $response->setStatusCode($exception->getStatusCode());
                 $response->headers->replace($exception->getHeaders());
             } else {
-                //cualquier otra cosa => 500
+                //cualquier otra cosa => http_code: 500
                 $msg["http_code"] = Response::HTTP_INTERNAL_SERVER_ERROR;
-                $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
             }
         }
 
-        $msg['exception_code'] = $exception->getCode();
+        //setea http code en el objeto respuesta
+        $response->setStatusCode($msg["http_code"]);
+        $msg["http_msg"] = Response::$statusTexts[$msg["http_code"]];
+
         if (method_exists($exception, "getDetails")) {
+            //si la excepción contiene algún detalle se agrega a la respuesta
             $msg['exception_details'] = $exception->getDetails();
         }
+
         $response->setContent(json_encode($msg));
+
+        //@TODO formatear segun header accept ¿?
         $response->headers->set('Content-Type', 'application/json');
 
         $event->setResponse($response);

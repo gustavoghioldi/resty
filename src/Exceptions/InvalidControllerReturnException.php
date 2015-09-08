@@ -36,7 +36,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 class InvalidControllerReturnException extends HttpException
 {
     use RestyTraitException;
-    const MSG = 'El controlador no devolvio ningún valor o es inválido';
+    const MSG = 'El controlador no devolvió ningún valor o tiene un formato inválido';
     const CODE = 100002;
 
     /**
