@@ -25,6 +25,8 @@ use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 //HttpFoundation
 use Symfony\Component\HttpFoundation\Response;
+// Psr - Looger
+use Psr\Log\LoggerAwareTrait;
 
 /**
  * ExceptionListener
@@ -38,6 +40,8 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ExceptionListener implements EventSubscriberInterface
 {
+    use LoggerAwareTrait;
+
     /**
      * Handler para los errores dentro de workflow de httpkernel
      *
@@ -47,6 +51,7 @@ class ExceptionListener implements EventSubscriberInterface
      */
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
+        //@TODO: refactorizar método
         $exception = $event->getException();
 
         $response = new Response();
@@ -91,8 +96,18 @@ class ExceptionListener implements EventSubscriberInterface
         $response->setContent(json_encode($msg));
 
         //@TODO formatear segun header accept ¿?
+        //por el momento los errores solo lo devuelve en formato json
         $response->headers->set('Content-Type', 'application/json');
 
+        //guarda el log
+        $this->logger->error(
+            $msg["http_code"]." - ".$msg["http_msg"],
+            [
+                $msg['exception_msg'],
+                $msg["http_code"],
+                $msg['exception_details']
+            ]
+        );
         $event->setResponse($response);
     }
     /**

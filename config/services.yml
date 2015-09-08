@@ -40,6 +40,8 @@ services:
 
     listener_exception:
         class: Resty\EventListener\ExceptionListener
+        calls:
+            - ['setLogger', ['@logger_default']]
     
     # HttpKernel
     # -----------------------
@@ -72,7 +74,7 @@ services:
 
     # Logger
     # -----------------------
-    logger.default:
+    logger_default:
         class: Resty\Logger\Logger
         arguments: 
             - 'default'
