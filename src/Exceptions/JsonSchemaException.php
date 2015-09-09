@@ -40,11 +40,9 @@ class JsonSchemaException extends BadRequestHttpException
     /**
      * Constructor
      *
-     * @method __construct
-     *
-     * @param  string     $message  Mensaje
-     * @param  \Exception $previous Excepcion anterior
-     * @param  integer    $code     Código
+     * @param string     $message  Mensaje
+     * @param \Exception $previous Excepcion anterior
+     * @param integer    $code     Código
      */
     public function __construct($message = "", \Exception $previous = null, $code = 0)
     {
