@@ -52,7 +52,15 @@ class ControllerResolver extends BaseControllerResolver implements ContainerAwar
     {
         $this->container = $container;
     }
-
+    /**
+     * [doGetArguments description]
+     * 
+     * @param Request $request    [description]
+     * @param [type]  $controller [description]
+     * @param array   $parameters [description]
+     * 
+     * @return Object
+     */
     protected function doGetArguments(Request $request, $controller, array $parameters)
     {
         /*
