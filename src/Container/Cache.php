@@ -57,7 +57,7 @@ class Cache extends Container
             $container = parent::create($app);
             $containerConfigCache = new ConfigCache($file, $this->isDebug);
             if (!$containerConfigCache->isFresh()) {
-                $container->compile();
+                //$container->compile();
                 $this->createCache($container, $containerConfigCache);
             }
         }

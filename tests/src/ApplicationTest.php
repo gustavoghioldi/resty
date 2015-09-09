@@ -27,5 +27,28 @@
  */
 class ApplicationTest extends PHPUnit_Framework_TestCase
 {
-
+    /**
+     * Testea el metodo setEnv pasando un valor inválido
+     *
+     * @expectedException \Resty\Exceptions\InvalidEnvironmentException
+     * 
+     * @return void
+     */
+    public function testSetEnvException()
+    {
+        $app = new \Resty\Application();
+        $app->setEnv("dummy");
+    }
+    /**
+     * Testea el metodo setEnv
+     *
+     * @return void
+     */
+    public function testSetEnv()
+    {
+        $expected = \Resty\Environment::PROD;
+        $app = new \Resty\Application();
+        $app->setEnv($expected);
+        $this->assertEquals($expected, $app->getEnv());
+    }
 }

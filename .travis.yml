@@ -1,0 +1,15 @@
+language: php
+
+php:
+  - 5.5
+  - 5.6
+  - hhvm
+
+before_script:
+  - composer self-update
+  - composer install
+  - cp ruleset.xml.dist ruleset.xml
+
+script:
+  - php vendor/bin/phpunit -c tests/phpunit.xml
+  - php vendor/bin/phpcs --standard=ruleset.xml src/
