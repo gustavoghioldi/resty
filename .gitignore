@@ -1,3 +1,4 @@
 vendor
-phpunit.xml
 tests/coverage
+phpunit.xml
+ruleset.xml

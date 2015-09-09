@@ -15,12 +15,25 @@ parameters:
     # Nombre del archivo donde estan definidas las rutas
     route.routes.filename: 'routes.yml'
 
+    # Formatos de respuesta que puede devolver la api
+    # --------------------------------------------------------
+    response.format.accept:
+        - 'application/json'
+        - 'application/xml'
+
     # Negotiatior
     # --------------------------------------------------------
     negotiatior.format_accept: 
-        - 'application/xml'
         - 'application/json'
+        - 'application/xml'
 
     # Json Schema Validator
     # --------------------------------------------------------
     json.schema.validator: Resty\JsonSchema\Validator\RainbowJsonSchemaValidator
+
+    # Logger
+    # -----------------------
+    logger.default: 
+        handler: \Monolog\Handler\StreamHandler
+        file: '%root_path%logs/default.log'
+        level: DEBUG

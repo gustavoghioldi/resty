@@ -47,5 +47,6 @@ class UnexpectedErrorException extends HttpException
     public function __construct($message = null, \Exception $previous = null, $code = 0)
     {
         parent::__construct(500, static::MSG, $previous, array(), static::CODE);
+        $this->setDetails($message);
     }
 }

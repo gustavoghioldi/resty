@@ -42,6 +42,8 @@ class Factory
     /**
      * Metodo del factory
      *
+     * @param \Resty\Application $app Una instancia de Application
+     *
      * @return ContainerBuilder
      */
     public function create(Application $app)

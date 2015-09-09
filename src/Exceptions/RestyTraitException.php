@@ -37,7 +37,7 @@ trait RestyTraitException
     /**
      * Setea los detalles
      *
-     * @param string|array $message Setea mensaje custom
+     * @param string|array $details Setea mensaje custom
      *
      * @return void
      */
