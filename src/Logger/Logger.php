@@ -34,22 +34,30 @@ class Logger extends MonoLogger
 {
     /**
      * Configura un handler de streaming
-     * 
+     *
      * @param array $data Configuración del handler
      *                    Los valores del array son
      *                        - handler: clase del handler. Ej \Monolog\Handler\StreamHandler
      *                        - file: Path del archivo donde se almacenaran los logs. Ej: /tmp/logs
      *                        - level: Nivel de error. Los valores posibles son:
      *                            DEBUG, INFO, NOTICE, WARNING, ERROR, CRITICAL, ALERT, EMERGENCY
-     *                            
+     *
      * @return void
      */
     public function configureStreaming($data)
     {
+        //handler
         $handler = new $data['handler'](
-            $data['file'], 
+            $data['file'],
             constant('\Monolog\Logger::'.$data['level'])
         );
         $this->pushHandler($handler);
+
+        //processors
+        if (isset($data['processors']) && is_array($data['processors'])) {
+            foreach ($data['processors'] as $processor) {
+                $this->pushProcessor(new $processor);
+            }
+        }
     }
 }

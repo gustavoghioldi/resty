@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a3b34d66fa084e41f81d396cd7ace4fc",
+    "hash": "eb7a8b91b20c1c6059e6dbf0ebf9fa5c",
     "packages": [
         {
             "name": "justinrainbow/json-schema",
@@ -250,12 +250,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "9ff9032151186bd66ecee727d728f1319f52d1d8"
+                "reference": "fe4994cfc06647eb679a5dfa09f7fb20158862a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/9ff9032151186bd66ecee727d728f1319f52d1d8",
-                "reference": "9ff9032151186bd66ecee727d728f1319f52d1d8",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/fe4994cfc06647eb679a5dfa09f7fb20158862a3",
+                "reference": "fe4994cfc06647eb679a5dfa09f7fb20158862a3",
                 "shasum": ""
             },
             "require": {
@@ -299,7 +299,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2015-09-03 11:40:38"
+            "time": "2015-09-10 08:05:42"
         },
         {
             "name": "symfony/debug",
@@ -307,12 +307,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Debug.git",
-                "reference": "abb3cc00c091a331876aae4d11a7d505ae585cf5"
+                "reference": "7eac742c453af47ae561d6c41743dc7faefc9464"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Debug/zipball/abb3cc00c091a331876aae4d11a7d505ae585cf5",
-                "reference": "abb3cc00c091a331876aae4d11a7d505ae585cf5",
+                "url": "https://api.github.com/repos/symfony/Debug/zipball/7eac742c453af47ae561d6c41743dc7faefc9464",
+                "reference": "7eac742c453af47ae561d6c41743dc7faefc9464",
                 "shasum": ""
             },
             "require": {
@@ -354,7 +354,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2015-09-07 15:20:04"
+            "time": "2015-09-10 08:08:06"
         },
         {
             "name": "symfony/dependency-injection",
@@ -362,12 +362,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DependencyInjection.git",
-                "reference": "c0a3a97b9450d77cd8eff81c5825efb3624c255b"
+                "reference": "b408d12e7619e70a960c52423a153b74e9406586"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DependencyInjection/zipball/c0a3a97b9450d77cd8eff81c5825efb3624c255b",
-                "reference": "c0a3a97b9450d77cd8eff81c5825efb3624c255b",
+                "url": "https://api.github.com/repos/symfony/DependencyInjection/zipball/b408d12e7619e70a960c52423a153b74e9406586",
+                "reference": "b408d12e7619e70a960c52423a153b74e9406586",
                 "shasum": ""
             },
             "require": {
@@ -414,7 +414,7 @@
             ],
             "description": "Symfony DependencyInjection Component",
             "homepage": "https://symfony.com",
-            "time": "2015-08-24 07:16:32"
+            "time": "2015-09-10 08:05:42"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -422,12 +422,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/EventDispatcher.git",
-                "reference": "b58c916f1db03a611b72dd702564f30ad8fe83fa"
+                "reference": "62895d3114ea42664fbf4aa30101986a7db7b1cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/b58c916f1db03a611b72dd702564f30ad8fe83fa",
-                "reference": "b58c916f1db03a611b72dd702564f30ad8fe83fa",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/62895d3114ea42664fbf4aa30101986a7db7b1cc",
+                "reference": "62895d3114ea42664fbf4aa30101986a7db7b1cc",
                 "shasum": ""
             },
             "require": {
@@ -472,7 +472,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2015-08-24 07:13:45"
+            "time": "2015-09-09 17:42:36"
         },
         {
             "name": "symfony/filesystem",
@@ -480,12 +480,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Filesystem.git",
-                "reference": "b9fa06f1822de287e660130955b546777994597b"
+                "reference": "287fc0b1dcb11ff729eeefc20441c08eaf628f29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/b9fa06f1822de287e660130955b546777994597b",
-                "reference": "b9fa06f1822de287e660130955b546777994597b",
+                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/287fc0b1dcb11ff729eeefc20441c08eaf628f29",
+                "reference": "287fc0b1dcb11ff729eeefc20441c08eaf628f29",
                 "shasum": ""
             },
             "require": {
@@ -521,7 +521,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2015-08-27 07:03:53"
+            "time": "2015-09-09 18:05:45"
         },
         {
             "name": "symfony/finder",
@@ -631,12 +631,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/HttpKernel.git",
-                "reference": "b5b536896c7234d4674a8f96120b280419350638"
+                "reference": "d9250f16ee3e882d97bfac53910c101992dacb40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/b5b536896c7234d4674a8f96120b280419350638",
-                "reference": "b5b536896c7234d4674a8f96120b280419350638",
+                "url": "https://api.github.com/repos/symfony/HttpKernel/zipball/d9250f16ee3e882d97bfac53910c101992dacb40",
+                "reference": "d9250f16ee3e882d97bfac53910c101992dacb40",
                 "shasum": ""
             },
             "require": {
@@ -703,7 +703,7 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "https://symfony.com",
-            "time": "2015-09-08 18:12:26"
+            "time": "2015-09-09 18:00:08"
         },
         {
             "name": "symfony/routing",
@@ -711,12 +711,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Routing.git",
-                "reference": "20b1378cb6efffb77ea0608232f18c8f0dd25109"
+                "reference": "2be44b92a57de03e23b17040cf24f50ac5c8b635"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Routing/zipball/20b1378cb6efffb77ea0608232f18c8f0dd25109",
-                "reference": "20b1378cb6efffb77ea0608232f18c8f0dd25109",
+                "url": "https://api.github.com/repos/symfony/Routing/zipball/2be44b92a57de03e23b17040cf24f50ac5c8b635",
+                "reference": "2be44b92a57de03e23b17040cf24f50ac5c8b635",
                 "shasum": ""
             },
             "require": {
@@ -774,7 +774,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2015-08-24 07:13:45"
+            "time": "2015-09-10 08:05:42"
         },
         {
             "name": "symfony/yaml",
