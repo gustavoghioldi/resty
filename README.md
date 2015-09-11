@@ -10,7 +10,7 @@ Master branch [![Build Status](https://travis-ci.org/restyphp/resty.svg?branch=m
 Versión
 -------
 
-__0.4.0__
+__0.4.1__
 
 License
 -------
