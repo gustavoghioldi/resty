@@ -91,25 +91,14 @@ class AutomaticSerializerListener implements EventSubscriberInterface, Container
             $this->container->getParameter('negotiatior.format_accept')
         );
 
-        if ($best === null) {
-            //Si devuelve nulo es porque la petición pidio un formato de respesta que no es válido
-            $event->setResponse(
-                new Response(
-                    json_encode(["Invalid response type"]),
-                    Response::HTTP_NOT_IMPLEMENTED,
-                    array('content-type' => 'application/json')
-                )
-            );
-        } else {
-            //@TODO: tengo que formatear el resultado al tipo que fue solicitado en el request
-            $event->setResponse(
-                new Response(
-                    json_encode($response),
-                    Response::HTTP_OK,
-                    array('content-type' => 'application/json')
-                )
-            );
-        }
+        //@TODO: tengo que formatear el resultado al tipo que fue solicitado en el request
+        $event->setResponse(
+            new Response(
+                json_encode($response),
+                Response::HTTP_OK,
+                array('content-type' => 'application/json')
+            )
+        );
     }
     /**
      * Suscribe el evento
