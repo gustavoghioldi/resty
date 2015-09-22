@@ -17,15 +17,10 @@ parameters:
 
     # Formatos de respuesta que puede devolver la api
     # --------------------------------------------------------
-    response.format.accept:
-        - 'application/json'
-        - 'application/xml'
-
-    # Negotiatior
-    # --------------------------------------------------------
     negotiatior.format_accept: 
-        - 'application/json'
-        - 'application/xml'
+        - 'application/json; charset=UTF-8'
+        - 'application/xml; charset=UTF-8'
+        - '*/*;charset=UTF-8'
 
     # Json Schema Validator
     # --------------------------------------------------------

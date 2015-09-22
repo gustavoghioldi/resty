@@ -85,20 +85,31 @@ class AutomaticSerializerListener implements EventSubscriberInterface, Container
 
         //obtiene el negociador del formato de respuesta
         $negotiator = $this->container->get('negotiatior_format');
+        
         //obtiene el mejor formato
         $best = $negotiator->getBest(
             $event->getRequest()->headers->get('Accept'),
             $this->container->getParameter('negotiatior.format_accept')
         );
 
-        //@TODO: tengo que formatear el resultado al tipo que fue solicitado en el request
-        $event->setResponse(
-            new Response(
-                json_encode($response),
-                Response::HTTP_OK,
-                array('content-type' => 'application/json')
-            )
-        );
+        if (is_null($best) || $best->getMediaType() == 'application/json') {
+            $event->setResponse(
+                new Response(
+                    json_encode($response),
+                    Response::HTTP_OK,
+                    array('content-type' => $best->getValue())
+                )
+            );
+        } else {
+            //@todo formatear a otro formato
+            $event->setResponse(
+                new Response(
+                    json_encode($response),
+                    Response::HTTP_OK,
+                    array('content-type' => 'application/json')
+                )
+            );
+        }
     }
     /**
      * Suscribe el evento
