@@ -42,11 +42,6 @@ services:
         class: Resty\EventListener\ExceptionListener
         calls:
             - ['setLogger', ['@logger_default']]
-    
-    listener_accept_header_validation:
-        class: Resty\EventListener\AcceptHeaderValidationListener
-        calls:
-            - ['setContainer', ['@service_container']]
 
     # HttpKernel
     # -----------------------
@@ -57,7 +52,6 @@ services:
             - [addSubscriber, ["@listener_router"]]
             - [addSubscriber, ["@listener_automatic_serialize"]]
             - [addSubscriber, ["@listener_exception"]]
-            - [addSubscriber, ["@listener_accept_header_validation"]]
 
     http_kernel_controller_resolver:
         class: Resty\Controller\ControllerResolver
