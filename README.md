@@ -1,7 +1,7 @@
 Resty
 =====
 
-Librería para crear servicios Rest
+Librería super sencilla, basada en Slim, para crear servicios Restfull.
 
 Develop branch [![Build Status](https://travis-ci.org/restyphp/resty.svg?branch=develop)](https://travis-ci.org/restyphp/resty)
 
@@ -10,9 +10,9 @@ Master branch [![Build Status](https://travis-ci.org/restyphp/resty.svg?branch=m
 Versión
 -------
 
-__0.4.1__
+__0.5.0__
 
 License
 -------
 
-The MIT License (MIT). Please see [License File](https://github.om/mostofreddy/resty/blob/master/LICENSE.md) for more information.
+The MIT License (MIT). Ver el archivo [LICENSE](LICENSE.md) para más información
