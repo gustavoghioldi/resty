@@ -1,10 +1,16 @@
 Changelog
 =========
 
-
 0.5.0
 -----
 
-* Implement - Ahora extiende Slim framework
-* Deprecated - Symfony components
-* Refactor - Completo refactor
+### News
+
+* Add - Clase Api 
+* Feature - Comando para iniciar servidor de desarrollo
+* Feature - Extiende Slim Framework
+
+### Deprecated
+
+* Deprecated - Todas las funcionalidades
+* Deprecated - Symfony Component

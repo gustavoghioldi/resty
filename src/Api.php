@@ -17,6 +17,7 @@
 namespace Resty;
 
 use Slim\App;
+use Symfony\Component\Console\Application;
 
 /**
  * Api
@@ -32,6 +33,7 @@ use Slim\App;
  */
 class Api extends App
 {
+    protected $commands = [];
     /**
      * Constructor
      *
@@ -40,5 +42,36 @@ class Api extends App
     public function __construct($container = [])
     {
         parent::__construct($container);
+    }
+    /**
+     * Ejecuta comando
+     * 
+     * @return void
+     */
+    public function runCommand()
+    {
+        $command = new Application();
+        $this->setCommandList($command);
+        $command->run();
+    }
+    /**
+     * Setea la lista de comandos a la aplicación
+     *
+     * @param Aplication $cmd Instancia de la aplicacion comando
+     *
+     * @return void
+     */
+    protected function setCommandList(Application $cmd)
+    {
+        $commandBase = array_merge(
+            [
+                '\Resty\Command\ServerCommand'
+            ],
+            $this->commands
+        );
+
+        foreach ($commandBase as $command) {
+            $cmd->add(new $command);
+        }
     }
 }

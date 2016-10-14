@@ -1,0 +1,42 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Console
+ *
+ * PHP version 7.0.0+
+ *
+ * @category  Resty
+ * @package   Resty
+ * @author    Federico Lozada Mosto <mosto.federico@gmail.com>
+ * @copyright 2016 Federico Lozada Mosto <mosto.federico@gmail.com>
+ * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @link      http://www.mostofreddy.com.ar
+ */
+
+foreach (array(__DIR__ . '/../../autoload.php', __DIR__ . '/../vendor/autoload.php', __DIR__ . '/vendor/autoload.php') as $file) {
+    if (file_exists($file)) {
+        define('COMPOSER_INSTALL', $file);
+        break;
+    }
+}
+
+unset($file);
+
+if (!defined('COMPOSER_INSTALL')) {
+    fwrite(
+        STDERR,
+        'You need to set up the project dependencies using the following commands:' . PHP_EOL .
+        'wget http://getcomposer.org/composer.phar' . PHP_EOL .
+        'php composer.phar install' . PHP_EOL
+    );
+
+    die(1);
+}
+
+require COMPOSER_INSTALL;
+
+use Resty\Api;
+use Resty\Command\ServeCommand;
+
+$api = new Api();
+$api->runCommand();
