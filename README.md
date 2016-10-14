@@ -6,7 +6,7 @@ Librería super sencilla, basada en Slim, para crear servicios Restfull.
 Versión
 -------
 
-0.1.0
+0.5.0
 
 License
 -------

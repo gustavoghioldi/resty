@@ -5,6 +5,7 @@
     "keywords": ["rest", "api", "framework", "slim"],
     "homepage": "https://github.com/mostofreddy/resty",
     "license": "MIT",
+    "version": "0.5.0",
     "authors": [
         {
             "name": "Federico Lozada Mosto",
@@ -21,11 +22,6 @@
     "require-dev": {
         "phpunit/phpunit": "5.5.*",
         "squizlabs/php_codesniffer": "2.7.*"
-    },
-    "suggest": {
-        "slim/twig-view": "Sistema de template (versión: 2.1.*)",
-        "mostofreddy/loggy": "Logger simple y liviano (versión: dev-master)",
-        "doctrine/dbal": "Abstracción de base de datos (version: v2.5.*)"
     },
     "autoload": {
         "psr-4": {
