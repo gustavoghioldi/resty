@@ -4,8 +4,9 @@ Resty
 Librería super sencilla, basada en Slim, para crear servicios Restfull.
 
 
-Development branch [![Build Status](https://travis-ci.org/restyphp/resty.svg?branch=development)](https://travis-ci.org/restyphp/resty)
-Master branch [![Build Status](https://travis-ci.org/restyphp/resty.svg?branch=master)](https://travis-ci.org/restyphp/resty)
+__Development__ [![Build Status](https://travis-ci.org/restyphp/resty.svg?branch=development)](https://travis-ci.org/restyphp/resty)
+
+__Master__ [![Build Status](https://travis-ci.org/restyphp/resty.svg?branch=master)](https://travis-ci.org/restyphp/resty)
 
 [![Latest Stable Version](https://poser.pugx.org/restyphp/resty/v/stable)](https://packagist.org/packages/restyphp/resty)
 [![Latest Unstable Version](https://poser.pugx.org/restyphp/resty/v/unstable)](https://packagist.org/packages/restyphp/resty)
