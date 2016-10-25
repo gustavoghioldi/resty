@@ -1,6 +1,14 @@
 Changelog
 =========
 
+0.6.0
+-----
+
+### Features
+
+* Add - Modificación de los handlers de errores de Slim para que devuelva siempre Json
+* Add - Controlador base.
+
 0.5.0
 -----
 
