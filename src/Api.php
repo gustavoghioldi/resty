@@ -16,6 +16,7 @@
  */
 namespace Resty;
 
+use Resty\DefaultServicesProvider;
 use Slim\App;
 use Symfony\Component\Console\Application;
 
@@ -42,6 +43,17 @@ class Api extends App
     public function __construct($container = [])
     {
         parent::__construct($container);
+        $this->registerDafaultServicesProvider();
+    }
+    /**
+     * Registra los providers de Resty
+     * 
+     * @return void
+     */
+    protected function registerDafaultServicesProvider()
+    {
+        $dsp = new DefaultServicesProvider();
+        $dsp->register($this->getContainer());
     }
     /**
      * Ejecuta comando
