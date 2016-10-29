@@ -1,6 +1,6 @@
 <?php
 /**
- * CommandController
+ * LoggerCollection
  *
  * PHP version 7+
  *
@@ -16,12 +16,10 @@
  */
 namespace Resty;
 
-use Resty\Controller;
-use \Psr\Http\Message\ResponseInterface as Response;
-use \Psr\Http\Message\RequestInterface as Request;
+use Slim\Collection;
 
 /**
- * CommandController
+ * LoggerCollection
  *
  * @category  Resty
  * @package   Resty
@@ -30,16 +28,36 @@ use \Psr\Http\Message\RequestInterface as Request;
  * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @link      http://www.mostofreddy.com.ar
  */
-abstract class CommandController extends Controller
+class LoggerCollection extends Collection
 {
+    protected $default = 'default';
+
     /**
-     * Invoca al controller
+     * Setea la key del logger por defecto
      * 
-     * @param Request  $req    Instancia de Request
-     * @param Response $res    Instancia de Response
-     * @param array    $params Parametros de la uri
-     * 
-     * @return Response
+     * @param string $default Nombre del logger
+     *
+     * @return LoggerCollection
      */
-    abstract public function __invoke(Request $req, Response $res, array $params = []):Response;
+    public function setDefaultLogger(string $default): LoggerCollection
+    {
+        $this->default = $default;
+        return $this;
+    }
+    /**
+     * Invoca al logger por defecto
+     * 
+     * @param string $method Nombre del metodo
+     * @param array  $args   Argumentos dle metodo
+     * 
+     * @return bool
+     */
+    public function __call($method, $args) 
+    {
+        $logger = $this->get($this->default);
+        if ($logger != null) {
+            return $logger->$method($args[0]??'', $args[1]??[]);
+        }
+        return true;
+    }
 }

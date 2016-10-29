@@ -44,9 +44,15 @@ class Api extends App
     {
         parent::__construct($container);
         $this->registerDafaultServicesProvider();
+        $this->registerServiceProviders();
     }
+
+    /**************************************************************
+     * Service Provider section
+     *************************************************************/
+
     /**
-     * Registra los providers de Resty
+     * Registra los providers por defecto de Resty
      * 
      * @return void
      */
@@ -55,6 +61,24 @@ class Api extends App
         $dsp = new DefaultServicesProvider();
         $dsp->register($this->getContainer());
     }
+    /**
+     * Registra los distintos servicios custom definidos en la configuración
+     *
+     * @return void
+     */
+    protected function registerServiceProviders()
+    {
+        $services = $this->getContainer()['servicesproviders']??[];
+        foreach ($services as $service) {
+            $service::register($this);
+        }
+    }
+
+
+    /**************************************************************
+     * Command section
+     *************************************************************/
+
     /**
      * Ejecuta comando
      * 

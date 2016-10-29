@@ -1,6 +1,6 @@
 <?php
 /**
- * CommandController
+ * ServiceProviderInterface
  *
  * PHP version 7+
  *
@@ -8,38 +8,33 @@
  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
  *
  * @category  Resty
- * @package   Resty
+ * @package   Resty\Interfaces
  * @author    Federico Lozada Mosto <mosto.federico@gmail.com>
  * @copyright 2016 Federico Lozada Mosto <mosto.federico@gmail.com>
  * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @link      http://www.mostofreddy.com.ar
  */
-namespace Resty;
+namespace Resty\Interfaces;
 
-use Resty\Controller;
-use \Psr\Http\Message\ResponseInterface as Response;
-use \Psr\Http\Message\RequestInterface as Request;
-
+use Resty\Api;
 /**
- * CommandController
+ * ServiceProviderInterface
  *
  * @category  Resty
- * @package   Resty
+ * @package   Resty\Interfaces
  * @author    Federico Lozada Mosto <mosto.federico@gmail.com>
  * @copyright 2016 Federico Lozada Mosto <mosto.federico@gmail.com>
  * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @link      http://www.mostofreddy.com.ar
  */
-abstract class CommandController extends Controller
+interface ServiceProviderInterface
 {
     /**
-     * Invoca al controller
-     * 
-     * @param Request  $req    Instancia de Request
-     * @param Response $res    Instancia de Response
-     * @param array    $params Parametros de la uri
-     * 
-     * @return Response
+     * Registra el servicio
+     *
+     * @param Api $app Instancia de la aplicacion
+     *
+     * @return void
      */
-    abstract public function __invoke(Request $req, Response $res, array $params = []):Response;
+    public static function register(Api $app);
 }

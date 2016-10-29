@@ -9,6 +9,7 @@ Changelog
 * Add - Modificación de los handlers de errores de Slim para que devuelva siempre Json
 * Add - Controlador base.
 * Add - Command controler
+* Add - Log providers: Loggy & Monolog
 
 0.5.0
 -----
