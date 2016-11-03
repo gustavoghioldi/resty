@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.6.0 - development
+0.6.0 - master
 -----
 
 ### Features
