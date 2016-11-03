@@ -1,6 +1,17 @@
 Changelog
 =========
 
+0.6.0 - development
+-----
+
+### Features
+
+* Add - Modificación de los handlers de errores de Slim para que devuelva siempre Json
+* Add - Controlador base.
+* Add - Command controler
+* Add - Log providers: Loggy & Monolog
+* Add - Dbal provider
+
 0.5.0
 -----
 

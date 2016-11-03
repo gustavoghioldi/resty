@@ -31,5 +31,10 @@
     },
     "bin": [
         "resty"
-    ]
+    ],
+    "suggest": {
+        "mostofreddy/loggy": "Logger simple y liviano (versión: dev-master)",
+        "monolog/monolog": "Monolog (versión: 1.21.*)",
+        "doctrine/dbal": "Abstracción de base de datos (version: v2.5.*)"
+    }
 }
