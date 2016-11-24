@@ -1,5 +1,5 @@
 {
-    "name": "mostofreddy/resty",
+    "name": "restyphp/resty",
     "type": "library",
     "description": "Create beautifull REST APIs",
     "keywords": ["rest", "api", "framework", "slim"],
