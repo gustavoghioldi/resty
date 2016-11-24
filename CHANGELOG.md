@@ -10,7 +10,6 @@ Changelog
 * Add - Controlador base.
 * Add - Command controler
 * Add - Log providers: Loggy & Monolog
-* Add - Dbal provider
 
 0.5.0
 -----
