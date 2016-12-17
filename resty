@@ -37,7 +37,7 @@ require COMPOSER_INSTALL;
 
 use Resty\ApiCommand;
 
-$configFilePath = realpath(__DIR__.'/config/').'/config.php';
+$configFilePath = realpath(__DIR__.'/../../../config/').'/config.php';
 
 $config = include_once $configFilePath;
 
