@@ -1,7 +1,16 @@
 Changelog
 =========
 
-0.6.0 - master
+0.7.0 - master
+-----
+
+* Change - Se desacoplan las funcionalidades de logger, handler de errores y service provider
+* Change - Configuracion
+* Change - Nueva clase para manejor de comandos
+* Change - Clase base para comandos para setear el container
+* Change - Otros
+
+0.6.0
 -----
 
 ### Features

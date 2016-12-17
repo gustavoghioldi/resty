@@ -5,7 +5,7 @@
     "keywords": ["rest", "api", "framework", "slim"],
     "homepage": "https://github.com/mostofreddy/resty",
     "license": "MIT",
-    "version": "0.5.0",
+    "version": "0.7.0",
     "authors": [
         {
             "name": "Federico Lozada Mosto",

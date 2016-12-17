@@ -18,7 +18,7 @@ __Master__ [![Build Status](https://travis-ci.org/mostofreddy/resty.svg?branch=m
 Versión estable
 ---------------
 
-0.5.0
+0.7.0
 
 License
 -------
