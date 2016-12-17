@@ -1,6 +1,6 @@
 <?php
 /**
- * LoggerCollection
+ * BaseCommand
  *
  * PHP version 7+
  *
@@ -8,56 +8,43 @@
  * For the full copyright and license information, please view the LICENSE file that was distributed with this source code.
  *
  * @category  Resty
- * @package   Resty
+ * @package   Resty\Command
  * @author    Federico Lozada Mosto <mosto.federico@gmail.com>
  * @copyright 2016 Federico Lozada Mosto <mosto.federico@gmail.com>
  * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @link      http://www.mostofreddy.com.ar
  */
-namespace Resty;
+namespace Resty\Command;
 
-use Slim\Collection;
+// Slim
+use Slim\Container;
+// Symfony - console
+use Symfony\Component\Console\Command\Command;
 
 /**
- * LoggerCollection
+ * BaseCommand
  *
  * @category  Resty
- * @package   Resty
+ * @package   Resty\Command
  * @author    Federico Lozada Mosto <mosto.federico@gmail.com>
  * @copyright 2016 Federico Lozada Mosto <mosto.federico@gmail.com>
  * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @link      http://www.mostofreddy.com.ar
  */
-class LoggerCollection extends Collection
+class BaseCommand extends Command
 {
-    protected $default = 'default';
+    protected $container = null;
 
     /**
-     * Setea la key del logger por defecto
+     * Setea instancia de Container
      * 
-     * @param string $default Nombre del logger
+     * @param Container $c Instancia de Container
      *
-     * @return LoggerCollection
+     * @return self
      */
-    public function setDefaultLogger(string $default): LoggerCollection
+    public function setContainer(Container $c)
     {
-        $this->default = $default;
+        $this->container = $c;
         return $this;
-    }
-    /**
-     * Invoca al logger por defecto
-     * 
-     * @param string $method Nombre del metodo
-     * @param array  $args   Argumentos dle metodo
-     * 
-     * @return bool
-     */
-    public function __call($method, $args) 
-    {
-        $logger = $this->get($this->default);
-        if ($logger != null) {
-            return $logger->$method($args[0]??'', $args[1]??[]);
-        }
-        return true;
     }
 }

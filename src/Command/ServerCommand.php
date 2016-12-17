@@ -16,10 +16,13 @@
  */
 namespace Resty\Command;
 
-use Symfony\Component\Console\Command\Command;
+// Resty
+use Resty\Command\BaseCommand;
+// Symfony - Console
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
+// Symfony - Process
 use Symfony\Component\Process\ProcessUtils;
 use Symfony\Component\Process\PhpExecutableFinder;
 
@@ -33,7 +36,7 @@ use Symfony\Component\Process\PhpExecutableFinder;
  * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @link      http://www.mostofreddy.com.ar
  */
-class ServerCommand extends Command
+class ServerCommand extends BaseCommand
 {
     /**
      * Configura el comando
@@ -83,7 +86,7 @@ class ServerCommand extends Command
 
         $binary = ProcessUtils::escapeArgument((new PhpExecutableFinder)->find(false));
 
-        $output->writeln("Resty development server started on http://{$host}:{$port}/ -t {$target}");
+        $output->writeln("Resty development server started on http://{$host}:{$port}");
 
         $cmd = "{$binary} -S {$host}:{$port} -t {$target}";
         passthru($cmd);

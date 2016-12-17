@@ -16,8 +16,9 @@
  */
 namespace Resty;
 
-use Slim\App;
+use Slim\Container;
 use Symfony\Component\Console\Application;
+use Interop\Container\ContainerInterface;
 
 /**
  * Api
@@ -31,9 +32,9 @@ use Symfony\Component\Console\Application;
  * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @link      http://www.mostofreddy.com.ar
  */
-class Api extends App
+class ApiCommand
 {
-    protected $commands = [];
+    protected $container = null;
     /**
      * Constructor
      *
@@ -41,19 +42,49 @@ class Api extends App
      */
     public function __construct($container = [])
     {
-        parent::__construct($container);
+        if (is_array($container)) {
+            $container = new Container($container);
+        }
+        if (!$container instanceof ContainerInterface) {
+            throw new \InvalidArgumentException('Expected a ContainerInterface');
+        }
+        $this->container = $container;
 
-        $this->setDefaultMiddlewares();
+
+        $o = new \Resty\Slim\ServiceProviderMiddleware($this->container);
+        $o->setProviders();
     }
-
     /**
-     * Setea los middlewares por defecto de Resty
+     * Run
+     * 
+     * @return void
+     */
+    public function run()
+    {
+        $cmd = new Application();
+        $this->setCommands($cmd);
+        return $cmd->run();
+    }
+    /**
+     * Setea los comandos
+     * 
+     * @param Application $cmd Instancia de Application
      *
      * @return void
      */
-    protected function setDefaultMiddlewares()
+    protected function setCommands(Application $cmd)
     {
-        $this->add('\Resty\Slim\ErrorHandlerMiddleware');
-        $this->add('\Resty\Slim\ServiceProviderMiddleware');
+        $commandBase = array_merge(
+            [
+                '\Resty\Command\ServerCommand'
+            ], 
+            $this->container->get("settings")['commands']??[]
+        );
+
+        foreach ($commandBase as $command) {
+            $cmd->add(
+                (new $command)->setContainer($this->container)
+            );
+        }
     }
 }

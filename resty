@@ -35,8 +35,11 @@ if (!defined('COMPOSER_INSTALL')) {
 
 require COMPOSER_INSTALL;
 
-use Resty\Api;
-use Resty\Command\ServeCommand;
+use Resty\ApiCommand;
 
-$api = new Api();
-$api->runCommand();
+$configFilePath = realpath(__DIR__.'/config/').'/config.php';
+
+$config = include_once $configFilePath;
+
+$api = new ApiCommand($config);
+$api->run();
